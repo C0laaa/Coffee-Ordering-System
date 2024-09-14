@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -51,19 +52,58 @@ namespace ramos_pinera_L4
 
         private void btnComplete_Click(object sender, EventArgs e)
         {
-            total = item1 + item2 + item3 + item4 + item5 + item6 + item7 + item8;
+            if (!chkItem1.Checked && !chkItem2.Checked && !chkItem3.Checked && !chkItem4.Checked
+            && !chkItem5.Checked && !chkItem6.Checked && !chkItem7.Checked && !chkItem8.Checked)
+            {
+                MessageBox.Show("Please Select an Item", "WARNING!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if ((int)numItem1.Value == 0 && (int)numItem2.Value == 0 && (int)numItem3.Value == 0 && (int)numItem4.Value == 0
+            && (int)numItem5.Value == 0 && (int)numItem6.Value == 0 && (int)numItem7.Value == 0 && (int)numItem8.Value == 0)
+            {
+                MessageBox.Show("Enter Quantity", "WARNING!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
+            else if (!rdoTakeOut.Checked && !rdoForHere.Checked)
+            {
+                MessageBox.Show("Please Select ToGO or For Here", "WARNING!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                total = item1 + item2 + item3 + item4 + item5 + item6 + item7 + item8;
+            }
+           
 
-            lblAmount.Text = total.ToString();
+           
 
-            item1 = 0;
-            item2 = 0;
-            item3 = 0;
-            item4 = 0;
-            item5 = 0;
-            item6 = 0;
-            item7 = 0;
-            item8 = 0;
+            if (chkMember.Checked && rdoTakeOut.Checked)
+            {
+                double points;
+                total = total - memberDiscount;
+                total = total + takeOutFee;
+                points = total * ptsForMember;
+                lblAmount.Text = total.ToString();
+                lblPoints.Text = points.ToString();
+            }
+            else if (chkMember.Checked)
+            {
+                double points;
+                total = total - memberDiscount;
+                points = total * ptsForMember;
+                lblAmount.Text = total.ToString();
+                lblPoints.Text = points.ToString();
+            }
+            else if (!chkMember.Checked && rdoTakeOut.Checked)
+            {
+                lblPoints.Text = "0.00";
+                total = total + takeOutFee;
+                lblAmount.Text = total.ToString();
+            }
+            else
+            {
+                lblPoints.Text = "0.00";
+                lblAmount.Text = total.ToString();
+            }
+
 
         }
 
