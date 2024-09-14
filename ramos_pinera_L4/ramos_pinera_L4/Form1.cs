@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,13 +13,16 @@ namespace ramos_pinera_L4
 {
     public partial class Form1 : Form
     {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+        // Fees
         double memberDiscount = 50;
         double takeOutFee = 10;
         double ptsForMember = .03;
 
-        //tagahold ng tota
-        double total = 0;
-
+      
         //global var ng prices
         double item1 = 0;
         double item2 = 0;
@@ -30,9 +33,38 @@ namespace ramos_pinera_L4
         double item7 = 0;
         double item8 = 0;
 
-        public Form1()
+        //tagahold ng total
+        double total = 0;
+
+
+        private void Form1_Load(object sender, EventArgs e)
         {
-            InitializeComponent();
+            numItem1.Enabled = false;
+            numItem2.Enabled = false;
+            numItem3.Enabled = false;
+            numItem4.Enabled = false;
+            numItem5.Enabled = false;
+            numItem6.Enabled = false;
+            numItem7.Enabled = false;
+            numItem8.Enabled = false;
+        }
+
+        private void btnComplete_Click(object sender, EventArgs e)
+        {
+            total = item1 + item2 + item3 + item4 + item5 + item6 + item7 + item8;
+
+
+            lblAmount.Text = total.ToString();
+
+            item1 = 0;
+            item2 = 0;
+            item3 = 0;
+            item4 = 0;
+            item5 = 0;
+            item6 = 0;
+            item7 = 0;
+            item8 = 0;
+
         }
 
         private void chkItem1_CheckedChanged(object sender, EventArgs e)
@@ -139,24 +171,6 @@ namespace ramos_pinera_L4
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            numItem1.Enabled = false;
-            numItem2.Enabled = false;
-            numItem3.Enabled = false;
-            numItem4.Enabled = false;
-            numItem5.Enabled = false;
-            numItem6.Enabled = false;
-            numItem7.Enabled = false;
-            numItem8.Enabled = false;
-        }
-
-        private void btnComplete_Click(object sender, EventArgs e)
-        {
-            total = item1 + item2 + item3 + item4 + item5 + item6 + item7 + item8;
-
-            lblAmount.Text = total.ToString();
-        }
 
         private void numItem1_ValueChanged(object sender, EventArgs e)
         {
